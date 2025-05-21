@@ -973,11 +973,13 @@ typedef struct JPH_JobSystemConfig {
 
 typedef struct JPH_JobSystem JPH_JobSystem;
 
+JPH_CAPI JPH_JobSystem* JPH_JobSystemSingleThreaded_Create();
 JPH_CAPI JPH_JobSystem* JPH_JobSystemThreadPool_Create(const JobSystemThreadPoolConfig* config);
 JPH_CAPI JPH_JobSystem* JPH_JobSystemCallback_Create(const JPH_JobSystemConfig* config);
 JPH_CAPI void JPH_JobSystem_Destroy(JPH_JobSystem* jobSystem);
 
 JPH_CAPI bool JPH_Init(void);
+JPH_CAPI bool JPH_InitWithTempAllocatorSize(uint32_t tempAllocatorSize);
 JPH_CAPI void JPH_Shutdown(void);
 JPH_CAPI void JPH_SetTraceHandler(JPH_TraceFunc handler);
 JPH_CAPI void JPH_SetAssertFailureHandler(JPH_AssertFailureFunc handler);

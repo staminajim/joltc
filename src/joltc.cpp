@@ -13,6 +13,7 @@ JPH_SUPPRESS_WARNINGS
 #include "Jolt/Core/Factory.h"
 #include "Jolt/Core/TempAllocator.h"
 #include "Jolt/Core/JobSystemThreadPool.h"
+#include "Jolt/Core/JobSystemSingleThreaded.h"
 #include "Jolt/Physics/PhysicsSettings.h"
 #include "Jolt/Physics/PhysicsSystem.h"
 #include "Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h"
@@ -639,6 +640,12 @@ private:
 	JPH_JobSystemConfig mConfig;
 };
 
+JPH_JobSystem* JPH_JobSystemSingleThreaded_Create()
+{
+	JPH::JobSystem* jobSystem = new JPH::JobSystemSingleThreaded(JPH::cMaxPhysicsJobs);
+	return reinterpret_cast<JPH_JobSystem*>(jobSystem);	
+}
+
 JPH_JobSystem* JPH_JobSystemThreadPool_Create(const JobSystemThreadPoolConfig* config)
 {
 	JobSystemThreadPoolConfig createConfig{};
@@ -663,7 +670,7 @@ void JPH_JobSystem_Destroy(JPH_JobSystem* jobSystem)
 	delete reinterpret_cast<JPH::JobSystem*>(jobSystem);
 }
 
-bool JPH_Init()
+bool JPH_InitWithTempAllocatorSize(uint32_t tempAllocatorSize)
 {
 	JPH::RegisterDefaultAllocator();
 
@@ -678,9 +685,14 @@ bool JPH_Init()
 	JPH::RegisterTypes();
 
 	// Init temp allocator
-	s_TempAllocator = new TempAllocatorImplWithMallocFallback(8 * 1024 * 1024);
+	s_TempAllocator = new TempAllocatorImplWithMallocFallback(tempAllocatorSize);
 
 	return true;
+}
+
+bool JPH_Init()
+{
+	return JPH_InitWithTempAllocatorSize(8 * 1024 * 1024);	
 }
 
 void JPH_Shutdown(void)
