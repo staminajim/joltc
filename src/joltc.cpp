@@ -1686,6 +1686,14 @@ void JPH_Matrix4x4_MultiplyScalar(const JPH_Matrix4x4* m, float scalar, JPH_Matr
 	FromJolt(joltM * scalar, result);
 }
 
+JPH_CAPI void JPH_Matrix4x4_Transform(const JPH_Matrix4x4* m1, const JPH_Vec3* v1, JPH_Vec3* result)
+{
+	JPH_ASSERT(m1 && v1 && result);
+	auto joltM = ToJolt(m1);
+	JPH::Vec3 joltVec1 = ToJolt(v1);
+	FromJolt(joltM * joltVec1, result);
+}
+
 void JPH_Matrix4x4_Zero(JPH_Matrix4x4* result) {
 	const JPH::Mat44 mat = JPH::Mat44::sZero();
 	FromJolt(mat, result);

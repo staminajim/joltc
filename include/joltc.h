@@ -1158,6 +1158,7 @@ JPH_CAPI void JPH_Matrix4x4_Add(const JPH_Matrix4x4* m1, const JPH_Matrix4x4* m2
 JPH_CAPI void JPH_Matrix4x4_Subtract(const JPH_Matrix4x4* m1, const JPH_Matrix4x4* m2, JPH_Matrix4x4* result);
 JPH_CAPI void JPH_Matrix4x4_Multiply(const JPH_Matrix4x4* m1, const JPH_Matrix4x4* m2, JPH_Matrix4x4* result);
 JPH_CAPI void JPH_Matrix4x4_MultiplyScalar(const JPH_Matrix4x4* m, float scalar, JPH_Matrix4x4* result);
+JPH_CAPI void JPH_Matrix4x4_Transform(const JPH_Matrix4x4* m1, const JPH_Vec3* v1, JPH_Vec3* result);
 
 JPH_CAPI void JPH_Matrix4x4_Zero(JPH_Matrix4x4* result);
 JPH_CAPI void JPH_Matrix4x4_Identity(JPH_Matrix4x4* result);
