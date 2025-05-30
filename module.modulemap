@@ -1,0 +1,6 @@
+module CJolt {
+    header "include/joltc.h"
+    link "joltc"
+    link "Jolt"
+    export *
+}
